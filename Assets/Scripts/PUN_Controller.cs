@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -29,12 +30,17 @@ namespace Com.WIAP.Checkers{
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined Room: " + PhotonNetwork.CurrentRoom.Name);
+            LoadGameScene();
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             Debug.LogError("Failed to join room: " + message);
         }
+
+        private void LoadGameScene()
+        {
+            SceneManager.LoadScene("Checkers");
+        }
     }
 }
-

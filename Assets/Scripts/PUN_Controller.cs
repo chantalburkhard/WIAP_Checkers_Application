@@ -36,11 +36,12 @@ namespace Com.WIAP.Checkers{
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             Debug.LogError("Failed to join room: " + message);
+            Debug.Log("Please remember to start the Server_Start_Application before trying to connect to the game");
         }
 
         private void LoadGameScene()
         {
-            SceneManager.LoadScene("Checkers");
+            SceneManager.LoadScene("Checkers", LoadSceneMode.Single);
         }
     }
 }

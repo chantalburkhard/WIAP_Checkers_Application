@@ -9,6 +9,57 @@ public class CheckersPiece : MonoBehaviour
 
     public bool IsForceToMove(CheckersPiece[,] board, int x, int y)
     {
+        if (isWhite || isKing)
+        {
+            // Top left
+            if (x >= 2 && y <= 5)
+            {
+                CheckersPiece p = board[x - 1, y + 1];
+                // If there is a piece, and it is not the same color as ours
+                if (p != null && p.isWhite != isWhite)
+                {
+                    if (board[x - 2, y + 2] == null)
+                        return true;
+                }
+            }
+            // Top right
+            if (x <= 5 && y <= 5)
+            {
+                CheckersPiece p = board[x + 1, y + 1];
+                // If there is a piece, and it is not the same color as ours
+                if (p != null && p.isWhite != isWhite)
+                {
+                    if (board[x + 2, y + 2] == null)
+                        return true;
+                }
+            }
+        }
+
+        if (!isWhite || isKing)
+        {
+            // Bottom left
+            if (x >= 2 && y >= 2)
+            {
+                CheckersPiece p = board[x - 1, y - 1];
+                // If there is a piece, and it is not the same color as ours
+                if (p != null && p.isWhite != isWhite)
+                {
+                    if (board[x - 2, y - 2] == null)
+                        return true;
+                }
+            }
+            // Bottom right
+            if (x <= 5 && y >= 2)
+            {
+                CheckersPiece p = board[x + 1, y - 1];
+                // If there is a piece, and it is not the same color as ours
+                if (p != null && p.isWhite != isWhite)
+                {
+                    if (board[x + 2, y - 2] == null)
+                        return true;
+                }
+            }
+        }
         return false;
     }
 

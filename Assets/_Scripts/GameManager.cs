@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public GameObject serverPrefab;
     public GameObject clientPrefab;
 
+    public TMP_InputField nameInput;
+
     void Start()
     {
         Instance = this;
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour
             s.Init();
 
             Client c = Instantiate(clientPrefab).GetComponent<Client>();
+            c.clientName = nameInput.text;
+            // if no specific name is given, set default value to "Host"
+            if (c.clientName == "")
+                c.clientName = "Host";
             c.ConnectToServer("127.0.0.1", 6321);
         }
         catch (Exception e)
@@ -52,7 +58,6 @@ public class GameManager : MonoBehaviour
     public void ConnectToServerButton()
     {
         string hostAdress = GameObject.Find("HostInput").GetComponent<TMP_InputField>().text;
-        Debug.Log(hostAdress);
         // if no value is given in the text field the host address is set to local host
         if (hostAdress == "")
             hostAdress = "127.0.0.1";
@@ -60,6 +65,10 @@ public class GameManager : MonoBehaviour
         try
         {
             Client c = Instantiate(clientPrefab).GetComponent<Client>();
+            c.clientName = nameInput.text;
+            // if no specific name is given, set default value to "Client"
+            if (c.clientName == "")
+                c.clientName = "Client";
             c.ConnectToServer(hostAdress, 6321);
             connectMenu.SetActive(false);
         }
@@ -74,5 +83,13 @@ public class GameManager : MonoBehaviour
         mainMenu.SetActive(true);
         hostMenu.SetActive(false);
         connectMenu.SetActive(false);
+
+        Server s = FindObjectOfType<Server>();
+        if (s != null)
+            Destroy(s.gameObject);
+
+        Client c = FindObjectOfType<Client>();
+        if (c != null)
+            Destroy(c.gameObject);
     }
 }

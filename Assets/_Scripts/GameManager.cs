@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public TMP_InputField nameInput;
 
-    void Start()
+    private void Start()
     {
         Instance = this;
         hostMenu.SetActive(false);
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
             Client c = Instantiate(clientPrefab).GetComponent<Client>();
             c.clientName = nameInput.text;
+            c.isHost = true;
             // if no specific name is given, set default value to "Host"
             if (c.clientName == "")
                 c.clientName = "Host";
@@ -91,5 +93,10 @@ public class GameManager : MonoBehaviour
         Client c = FindObjectOfType<Client>();
         if (c != null)
             Destroy(c.gameObject);
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Checkers");
     }
 }

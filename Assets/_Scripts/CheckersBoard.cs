@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Com.WIAP.Checkers
-{
     public class CheckersBoard : MonoBehaviour
     {
+        public static CheckersBoard Instance { set; get; }
+
         // Public Variables
         public CheckersPiece[,] pieces = new CheckersPiece[8, 8];
         public GameObject whitePiece;
@@ -27,9 +27,16 @@ namespace Com.WIAP.Checkers
         private Vector2 startDrag;
         private Vector2 endDrag;
 
+        private Client client;
+
         // Start is called before the first frame update
         private void Start()
         {
+            Instance = this;
+
+            client = FindObjectOfType<Client>();
+            isWhite = client.isHost;
+
             // always start with white
             isWhiteTurn = true;
             forcedPieces = new List<CheckersPiece>();
@@ -122,7 +129,7 @@ namespace Com.WIAP.Checkers
             }
         }
 
-        private void TryMove(int x1, int y1, int x2, int y2)
+        public void TryMove(int x1, int y1, int x2, int y2)
         {
             forcedPieces = ScanForPossibleMove();
 
@@ -130,8 +137,6 @@ namespace Com.WIAP.Checkers
             startDrag = new Vector2(x1, y1);
             endDrag = new Vector2(x2, y2);
             selectedPiece = pieces[x1, y1];
-
-            MovePiece(selectedPiece, x2, y2);
 
             // Check if we are out of bounds
             if (x2 < 0 || x2 >= 8 || y2 < 0 || y2 >= 8)
@@ -167,7 +172,7 @@ namespace Com.WIAP.Checkers
                         if (p != null)
                         {
                             pieces[(x1 + x2) / 2, (y1 + y2) / 2] = null;
-                            Destroy(p.gameObject);
+                            DestroyImmediate(p.gameObject);
                             hasKilled = true;
                         }
                     }
@@ -216,6 +221,14 @@ namespace Com.WIAP.Checkers
                     selectedPiece.transform.Rotate(Vector3.right * 180);
                 }
             }
+
+            string msg = "CMOV|";
+            msg += startDrag.x.ToString() + '|';
+            msg += startDrag.y.ToString() + '|';
+            msg += endDrag.x.ToString() + '|';
+            msg += endDrag.y.ToString();
+
+            client.Send(msg);
 
             selectedPiece = null;
             startDrag = Vector2.zero;
@@ -321,4 +334,3 @@ namespace Com.WIAP.Checkers
             p.transform.position = (Vector3.right * x) + (Vector3.forward * y) + boardOffset + pieceOffset;
         }
     }
-}

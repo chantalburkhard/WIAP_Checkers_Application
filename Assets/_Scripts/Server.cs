@@ -93,7 +93,7 @@ public class Server : MonoBehaviour
 
         StartListening();
 
-        Broadcast("SWHO|", clients[clients.Count - 1]);
+        Broadcast("SWHO|" +allUsers, clients[clients.Count - 1]);
     }
 
     private bool IsConnected(TcpClient c)

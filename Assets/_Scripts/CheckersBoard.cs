@@ -39,8 +39,8 @@ using UnityEngine;
 
             // always start with white
             isWhiteTurn = true;
-            forcedPieces = new List<CheckersPiece>();
             GenerateBoard();
+            forcedPieces = new List<CheckersPiece>();   
         }
 
         private void Update()
@@ -60,7 +60,7 @@ using UnityEngine;
                     SelectPiece(x, y);
 
                 if (Input.GetMouseButtonUp(0)) 
-                    TryMove((int)startDrag.y, (int)startDrag.y, x, y);
+                    TryMove((int)startDrag.x, (int)startDrag.y, x, y);
             }
         }
 
@@ -104,9 +104,7 @@ using UnityEngine;
         {
             // Out of bounds
             if (x < 0 || x >= 8 || y < 0 || y >= 8)
-            {
                 return;
-            }
 
             CheckersPiece p = pieces[x, y];
 
@@ -155,7 +153,7 @@ using UnityEngine;
                 // If it has not moved
                 if (endDrag == startDrag)
                 {
-                    MovePiece(selectedPiece, x1, y2);
+                    MovePiece(selectedPiece, x1, y1);
                     startDrag = Vector2.zero;
                     selectedPiece = null;
                     return;
@@ -166,7 +164,7 @@ using UnityEngine;
                 {
                     // Did we kill anything
                     // If this is a jump
-                    if (Mathf.Abs(x2- x1) == 2)
+                    if (Mathf.Abs(x2 - x1) == 2)
                     {
                         CheckersPiece p = pieces[(x1 + x2) / 2, (y1 + y2) / 2];
                         if (p != null)
@@ -180,7 +178,7 @@ using UnityEngine;
                     // Were we supposed to kill anything?
                     if (forcedPieces.Count != 0 && !hasKilled)
                     {
-                        MovePiece(selectedPiece, x1, y2);
+                        MovePiece(selectedPiece, x1, y1);
                         startDrag = Vector2.zero;
                         selectedPiece = null;
                         return;
@@ -194,7 +192,7 @@ using UnityEngine;
                 }
                 else
                 {
-                    MovePiece(selectedPiece, x1, y2);
+                    MovePiece(selectedPiece, x1, y1);
                     startDrag = Vector2.zero;
                     selectedPiece = null;
                     return;
@@ -238,7 +236,7 @@ using UnityEngine;
 
             isWhiteTurn = !isWhiteTurn;
             // Switch team after every turn (local play mode)
-            isWhite = !isWhite;
+            //isWhite = !isWhite;
             hasKilled = false;
             CheckVictory();
         }

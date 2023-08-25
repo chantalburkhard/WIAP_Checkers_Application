@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         }
         
         mainMenu.SetActive(false);
+        connectMenu.SetActive(false);
         hostMenu.SetActive(true);
     }
 

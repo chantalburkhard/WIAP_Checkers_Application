@@ -70,6 +70,12 @@
         "com.microsoft.mixedreality.toolkit.foundation": "2.8.3"
       }
     },
+    "com.microsoft.spatialaudio.spatializer.unity": {
+      "version": "file:MixedReality/com.microsoft.spatialaudio.spatializer.unity-2.0.37.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "2.0.3",
       "depth": 0,

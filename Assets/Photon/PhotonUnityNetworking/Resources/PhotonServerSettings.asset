@@ -57,6 +57,13 @@ MonoBehaviour:
   - UnSnap
   - UpdateGravity
   - UpdateSlider
+  - UpdatePosition
+  - PunRPC_ResetPlacement
+  - PunRPC_SetNickName
+  - PunRPC_SetPlacement
+  - PunRPC_ShareAzureAnchorId
+  - PunRPC_ToggleExplodedView
+  - PunRPC_TogglePlacementHints
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

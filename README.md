@@ -1,11 +1,12 @@
-# Checkers Application - second part of a university project
-The application uses [Unity 3d](https://unity.com/de), [MRTK](https://www.microsoft.com/en-us/download/details.aspx?id=102778) and [Photon PUN 2](https://www.photonengine.com/pun) to join the created room from the [Server_Start_Application](https://github.com/chantalburkhard/WIAP_Server_Start_Application).
+# Checkers Application - A university project
+The application uses [Unity 3d](https://unity.com/de), [MRTK](https://www.microsoft.com/en-us/download/details.aspx?id=102778) and [Photon PUN 2](https://www.photonengine.com/pun) to create a AR/VR game for Microsoft HoloLens 2 and the HP Reverb G1 Headset.
 
 There are two play options:
-1. Single player - one real device joins the room
-2. Multi player - two or more real devices can join the room (e.g. 2 HoloLense devices, 2 VR-Headsets, one of each, etc.)
+1. Single player - Loads a scene for one player to play locally (with future updates maybe against a checkers ai) 
+2. Multi player - Loads a scene for two or more real devices (e.g. 2 HoloLense devices, 2 VR-Headsets, one of each, etc.) to join and play against each other with network synchronization and simple player avatars
 
-note: in the current state you can only see the basic checkers board
+Hint: currently the game mechanics are not completely implememted in the MRTK scenes (but are fully implemented in test scnenes in a normal unity 3d surrounding -> in the Folders "MultiplayerCheckersTest")
+
 
 # Build the project for HoloLens 2
 Make sure that your computer and the HoloLens have the developer mode activated.
@@ -14,7 +15,7 @@ Since the project is still in development the building process and running the a
 
 ## Build the project in Unity
 1. Open the project in Unity
-2. Open "Build Settings" and switcn to "Universal Windows Platform" change settings as seen in the screenshot below
+2. Open "Build Settings" and switch to "Universal Windows Platform" change settings as seen in the screenshot below
 ![Screenshot (115)](https://github.com/chantalburkhard/WIAP_Checkers_Application/assets/73609488/9188e9c5-2d56-4ccb-91f4-fdd75faceb34)
 3. Click "Build" and choose a directory where you want to save your files
 
@@ -52,3 +53,10 @@ Since the project is still in development the building process and running the a
 9. Make sure that the [Server_Start_Application](https://github.com/chantalburkhard/WIAP_Server_Start_Application) is running an the room "Checkers" was created
 11. Start the debugging process via the green arrow on the remote device
 12. After the building was successful the application should be running on the Hololens
+
+# Build the project for the HP Reverb Headset
+
+## Build the project in unity
+1. Open the project in unity
+2. Open "Build Settings" and switch to "Windows, Mac, Linux"
+3. Click "Build" or "Build And Run"

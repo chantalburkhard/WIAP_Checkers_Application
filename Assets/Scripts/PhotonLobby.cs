@@ -72,6 +72,17 @@ namespace WIAP.Checkers
         }
 
         /// <summary>
+        /// Called when a new player enters the room.
+        /// </summary>
+        /// <param name="newPlayer">The player who entered the room.</param>
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            base.OnPlayerEnteredRoom(newPlayer);
+
+            Debug.Log("Player " + newPlayer.NickName + " entered the room");
+        }
+
+        /// <summary>
         /// Called when a player leaves the room.
         /// </summary>
         /// <param name="otherPlayer">The player who left the room.</param>
@@ -90,6 +101,8 @@ namespace WIAP.Checkers
         /// <param name="message">The error message.</param>
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
+            Debug.Log("\nPhotonLobby.OnJoinRandomRoomFailed()");
+            Debug.LogError("On Joinded Random Room Failed");
             CreateRoom();
         }
 
@@ -112,14 +125,6 @@ namespace WIAP.Checkers
         {
             base.OnCreatedRoom();
             roomNumber++;
-        }
-
-        /// <summary>
-        /// Called when the cancel button is clicked to leave the room.
-        /// </summary>
-        public void OnCancelButtonClicked()
-        {
-            PhotonNetwork.LeaveRoom();
         }
 
         /// <summary>

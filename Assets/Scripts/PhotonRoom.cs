@@ -15,6 +15,7 @@ namespace WIAP.Checkers
         [SerializeField] private GameObject photonUserPrefab = default;
         [SerializeField] private GameObject CheckersPieceBlackPrefab = default;
         [SerializeField] private GameObject CheckersPieceWhitePrefab = default;
+
         [SerializeField] private Transform CheckersPieceLocation = default;
 
         // private PhotonView pv;
@@ -98,6 +99,8 @@ namespace WIAP.Checkers
             myNumberInRoom = playersInRoom;
             PhotonNetwork.NickName = myNumberInRoom.ToString();
 
+            Debug.Log("Player " + PhotonNetwork.NickName + " joined the room");
+
             StartGame();
         }
 
@@ -108,9 +111,19 @@ namespace WIAP.Checkers
         {
             CreatePlayer();
 
-            if (!PhotonNetwork.IsMasterClient) return;
-
-            if (BoardAnchor.Instance != null) CreateInteractableObjects();
+            // Check if Master Client and spawn the white piece
+            if (PhotonNetwork.IsMasterClient && BoardAnchor.Instance != null)
+            {
+                Debug.Log("Is master client. Spawn white piece");
+                CreateInteractablePieceWhite();
+            }
+                
+            // Check if not Master Client and spawn the black piece
+            if (!PhotonNetwork.IsMasterClient && BoardAnchor.Instance != null)
+            {
+                Debug.Log("Is not master client. Spawn black piece");
+                CreateInteractablePieceBlack();
+            } 
         }
 
         /// <summary>
@@ -122,20 +135,32 @@ namespace WIAP.Checkers
         }
 
         /// <summary>
-        /// Creates the interactable objects for the game.
+        /// Creates the interactable white piece for the game.
+        /// Only spawns when client is master client.
         /// </summary>
-        private void CreateInteractableObjects()
+        private void CreateInteractablePieceWhite()
         {
             var position = CheckersPieceLocation.position;
-            // Needs to be updated in the future to optimize the piece positions for a better user experience
+            // Needs to be updated in the future to optimize the piece position for a better user experience
             var positionOnTopOfSurface = new Vector3(position.x, position.y, position.z);
             
-            // Black Checkers Piece
-            var gOBlack = PhotonNetwork.Instantiate(CheckersPieceBlackPrefab.name, positionOnTopOfSurface,
-                CheckersPieceLocation.rotation);
-
             // White Checkers Piece
             var gOWhite = PhotonNetwork.Instantiate(CheckersPieceWhitePrefab.name, positionOnTopOfSurface,
+                CheckersPieceLocation.rotation);
+        }
+
+        /// <summary>
+        /// Creates the interactable black piece for the game.
+        /// Only spawns when client is not master client.
+        /// </summary>
+        private void CreateInteractablePieceBlack()
+        {
+            var position = CheckersPieceLocation.position;
+            // Needs to be updated in the future to optimize the piece position for a better user experience
+            var positionOnTopOfSurface = new Vector3(position.x, position.y, position.z);
+
+            // Black Checkers Piece
+            var gOBlack = PhotonNetwork.Instantiate(CheckersPieceBlackPrefab.name, positionOnTopOfSurface,
                 CheckersPieceLocation.rotation);
         }
     }

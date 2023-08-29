@@ -3,9 +3,9 @@ The application uses [Unity 3d](https://unity.com/de), [MRTK](https://www.micros
 
 There are two play options:
 1. Single player - Loads a scene for one player to play locally (with future updates maybe against a checkers ai) 
-2. Multi player - Loads a scene for two or more real devices (e.g. 2 HoloLense devices, 2 VR-Headsets, one of each, etc.) to join and play against each other with network synchronization and simple player avatars
+2. Multi player - Loads a scene for two or more real devices (e.g. 2 HoloLense devices, 2 VR-Headsets, one of each, etc.) to join and play against each other with network synchronization and simple player avatars. In the current state each player spawns a checkers piece when joining the room and is able to move their own piece. The other player is able to see the movement as well as the avatar respresenting the player.
 
-Hint: currently the game mechanics are not completely implememted in the MRTK scenes (but are fully implemented in test scnenes in a normal unity 3d surrounding -> in the Folders "MultiplayerCheckersTest")
+Hint: currently the game mechanics are not completely implememted in the MRTK scenes (but are fully implemented in test scenes in a normal unity 3d surrounding -> in the Folders "MultiplayerCheckersTest")
 
 
 # Build the project for HoloLens 2
@@ -16,8 +16,9 @@ Since the project is still in development the building process and running the a
 ## Build the project in Unity
 1. Open the project in Unity
 2. Open "Build Settings" and switch to "Universal Windows Platform" change settings as seen in the screenshot below
-![Screenshot (115)](https://github.com/chantalburkhard/WIAP_Checkers_Application/assets/73609488/9188e9c5-2d56-4ccb-91f4-fdd75faceb34)
-3. Click "Build" and choose a directory where you want to save your files
+![Screenshot (145)](https://github.com/chantalburkhard/WIAP_Checkers_Application/assets/73609488/d8bb6a0e-3825-4208-a9b5-21388859dc6e)
+
+4. Click "Build" and choose a directory where you want to save your files
 
 ## Set up Visual Studio 19
 1. Make sure [Visual Studio 19](https://learn.microsoft.com/de-de/visualstudio/releases/2019/release-notes) is installed with the UWP workload
